@@ -1,91 +1,68 @@
-const startButton = document.getElementById('start-button');
+// Seleccionar elementos del DOM
+const titleElement = document.getElementById('title');
 const questionsContainer = document.getElementById('questions-container');
 const resultsContainer = document.getElementById('results-container');
 
-const questions = [
-  {
-    question: '¿Cuál es mi nombre completo?',
-    correctAnswer: 'DENIS ENRIQUE BENAVIDES CAIPE',
-    errorMessage: 'Error! No es correcto.'
-  },
-  {
-    question: '¿Cuál es la fecha de mi nacimiento en formato DD/MM/AAAA?',
-    correctAnswer: '13/04/2004',
-    errorMessage: 'Error! No es correcto.'
-  },
-  {
-    question: '¿Cuál es la fecha de nuestro cumple meses o aniversario (número)?',
-    correctAnswer: '24',
-    errorMessage: 'Error! No es correcto.'
-  },
-  {
-    question: '¿Cuál es mi equipo favorito?',
-    options: ['Bayer Munich', 'Bayern Munchen', 'Bayern Munich', 'Bayern de Múnich'],
-    correctAnswer: 'Bayern de Múnich',
-    errorMessage: 'Error! No es correcto.'
-  },
-  {
-    question: '¿Cuál es mi jugador favorito?',
-    correctAnswer: 'NEYMAR',
-    errorMessage: 'Error! No es correcto.'
-  },
-  {
-    question: '¿Dónde fue nuestro primer beso?',
-    options: ['Universidad', 'Boulevard', 'Coctiki', 'Parque'],
-    correctAnswer: 'Coctiki',
-    errorMessage: 'Error! No es correcto.'
-  },
-  {
-    question: '¿Cuáles son las dos palabras que más nos hemos dicho en nuestros chats? (en mayúsculas)',
-    correctAnswer: 'TE QUIERO',
-    errorMessage: 'Error! No es correcto.'
-  }
-];
+// Ocultar el título y mostrar solo las letras "CUESTIONARIO..."
+titleElement.textContent = 'CUESTIONARIO...';
 
-let currentQuestion = 0;
-let correctAnswers = 0;
-let incorrectAnswers = 0;
+// Ejecutar la función showQuestions después de 5 segundos
+setTimeout(showQuestions, 5000);
 
-startButton.addEventListener('click', () => {
-  startButton.style.display = 'none';
+// Función para mostrar las preguntas
+function showQuestions() {
+  titleElement.style.display = 'none';
   questionsContainer.style.display = 'block';
   showQuestion();
-});
+}
+
+// Función para mostrar la pregunta actual
+let currentQuestion = 0;
+const questions = [
+  {
+    text: '¿Cuánto me quieres?',
+    options: ['Mucho', 'Poco', 'Nada']
+  },
+  {
+    text: '¿Te gustaría pasar tiempo conmigo?',
+    options: ['Sí', 'No', 'Tal vez']
+  },
+  // Agrega más preguntas aquí
+];
 
 function showQuestion() {
-  const question = questions[currentQuestion];
-  const questionElement = document.createElement('div');
-  questionElement.innerHTML = `
-    <p>${question.question}</p>
-    ${question.options? `
-      <ul>
-        ${question.options.map(option => `<li>${option}</li>`).join('')}
-      </ul>
-    ` : ''}
-    <input type="text" id="answer" placeholder="Respuesta">
-    <button id="submit-button">Enviar</button>
-  `;
-  questionsContainer.innerHTML = '';
+  const questionElement = document.createElement('p');
+  questionElement.textContent = questions[currentQuestion].text;
   questionsContainer.appendChild(questionElement);
 
-  const submitButton = document.getElementById('submit-button');
-  submitButton.addEventListener('click', () => {
-    const answer = document.getElementById('answer').value;
-    if (answer === question.correctAnswer) {
-      correctAnswers++;
-      showCorrectMessage();
-    } else {
-      incorrectAnswers++;
-      showErrorMessage(question.errorMessage);
-    }
+  const optionsElement = document.createElement('ul');
+  questions[currentQuestion].options.forEach((option) => {
+    const optionElement = document.createElement('li');
+    optionElement.textContent = option;
+    optionsElement.appendChild(optionElement);
+  });
+  questionsContainer.appendChild(optionsElement);
+
+  // Agrega un botón para pasar a la siguiente pregunta
+  const nextButton = document.createElement('button');
+  nextButton.textContent = 'Siguiente';
+  nextButton.onclick = () => {
     currentQuestion++;
     if (currentQuestion < questions.length) {
       showQuestion();
     } else {
       showResults();
     }
-  });
+  };
+  questionsContainer.appendChild(nextButton);
 }
 
-function showCorrectMessage() {
-  const messageElement =
+// Función para mostrar los resultados
+function showResults() {
+  questionsContainer.style.display = 'none';
+  resultsContainer.style.display = 'block';
+
+  const resultsElement = document.createElement('p');
+  resultsElement.textContent = '¡Gracias por responder!';
+  resultsContainer.appendChild(resultsElement);
+}
