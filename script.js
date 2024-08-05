@@ -88,12 +88,4 @@ function showQuestion() {
 }
 
 function showCorrectMessage() {
-  const messageElement = document.createElement('div');
-  messageElement.innerHTML = `
-    <p>EXCELENTE MI AMOR SIGUE ASÍ</p>
-    <span class="heart">❤️</span>
-  `;
-  questionsContainer.innerHTML = '';
-  questionsContainer.appendChild(messageElement);
-  setTimeout(() => {
-   
+  const messageElement =
