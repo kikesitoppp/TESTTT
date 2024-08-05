@@ -1,19 +1,14 @@
 // Seleccionar elementos del DOM
 const titleElement = document.getElementById('title');
-const startButton = document.getElementById('start-button');
 const questionsContainer = document.getElementById('questions-container');
 const resultsContainer = document.getElementById('results-container');
 
-// Ocultar el título y mostrar el botón de empezar
+// Ocultar el título y esperar 5 segundos antes de iniciar el cuestionario
 titleElement.textContent = 'CUESTIONARIO PARA SABER CUANTO ME QUIERES';
-startButton.style.display = 'block';
+setTimeout(startQuiz, 5000);
 
-// Agregar evento al botón de empezar
-startButton.addEventListener('click', startQuiz);
-
-// Función para empezar el cuestionario
+// Función para iniciar el cuestionario
 function startQuiz() {
-  startButton.style.display = 'none';
   questionsContainer.style.display = 'block';
   showQuestion();
 }
@@ -69,4 +64,4 @@ function showQuestion() {
   if (questions[currentQuestion].type === 'text') {
     inputElement = document.createElement('input');
     inputElement.type = 'text';
-    inputElement.placeholder = 'Escribe tu respuesta';
+    inputElement.placeholder = 'Escribe tu
