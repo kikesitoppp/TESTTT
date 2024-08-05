@@ -10,28 +10,6 @@ body {
   margin-bottom: 20px;
 }
 
-#start-button {
-  font-size: 24px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #4CAF50; /* Verde */
-  color: #fff;
-  cursor: pointer;
-}
-
-#start-button:hover {
-  background-color: #3e8e41; /* Verde oscuro */
-}
-
-#questions-container {
-  margin-top: 20px;
-}
-
-#results-container {
-  margin-top: 20px;
-}
-
 .heart {
   color: #FF0000; /* Rojo */
   font-size: 24px;
@@ -47,4 +25,41 @@ body {
   color: #008000; /* Verde */
   font-size: 18px;
   font-weight: bold;
+}
+
+.question-container {
+  margin-top: 20px;
+}
+
+.question {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.input-field {
+  width: 50%;
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+}
+
+.option {
+  margin-bottom: 10px;
+}
+
+.option input[type="radio"] {
+  margin-right: 10px;
+}
+
+.next-button {
+  background-color: #4CAF50; /* Verde */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.next-button:hover {
+  background-color: #3e8e41; /* Verde oscuro */
 }
