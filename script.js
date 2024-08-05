@@ -1,17 +1,19 @@
 // Seleccionar elementos del DOM
 const titleElement = document.getElementById('title');
+const startButton = document.getElementById('start-button');
 const questionsContainer = document.getElementById('questions-container');
 const resultsContainer = document.getElementById('results-container');
 
-// Ocultar el título y mostrar solo las letras "CUESTIONARIO..."
-titleElement.textContent = 'CUESTIONARIO...';
+// Ocultar el título y mostrar el botón de empezar
+titleElement.textContent = 'CUESTIONARIO PARA SABER CUANTO ME QUIERES';
+startButton.style.display = 'block';
 
-// Ejecutar la función showQuestions después de 5 segundos
-setTimeout(showQuestions, 5000);
+// Agregar evento al botón de empezar
+startButton.addEventListener('click', startQuiz);
 
-// Función para mostrar las preguntas
-function showQuestions() {
-  titleElement.style.display = 'none';
+// Función para empezar el cuestionario
+function startQuiz() {
+  startButton.style.display = 'none';
   questionsContainer.style.display = 'block';
   showQuestion();
 }
@@ -20,14 +22,42 @@ function showQuestions() {
 let currentQuestion = 0;
 const questions = [
   {
-    text: '¿Cuánto me quieres?',
-    options: ['Mucho', 'Poco', 'Nada']
+    text: '¿Cuál es mi nombre completo?',
+    type: 'text',
+    correctAnswer: 'DENIS ENRIQUE BENAVIDES CAIPE'
   },
   {
-    text: '¿Te gustaría pasar tiempo conmigo?',
-    options: ['Sí', 'No', 'Tal vez']
+    text: '¿Cuál es la fecha de mi nacimiento en formato DD/MM/AAAA?',
+    type: 'text',
+    correctAnswer: '13/04/2004'
   },
-  // Agrega más preguntas aquí
+  {
+    text: '¿Cuál es la fecha de nuestro cumple meses o aniversario?',
+    type: 'number',
+    correctAnswer: 24
+  },
+  {
+    text: '¿Cuál es mi equipo favorito?',
+    type: 'elect',
+    options: ['Bayer Munich', 'Bayern Munchen', 'Bayern Munich', 'Bayern de Múnich'],
+    correctAnswer: 'Bayern de Múnich'
+  },
+  {
+    text: '¿Cuál es mi jugador favorito?',
+    type: 'text',
+    correctAnswer: 'NEYMAR'
+  },
+  {
+    text: '¿Dónde fue nuestro primer beso?',
+    type: 'elect',
+    options: ['Universidad', 'Boulevard', 'Coctiki', 'Parque'],
+    correctAnswer: 'Coctiki'
+  },
+  {
+    text: '¿Cuáles son las dos palabras que más nos hemos dicho en nuestros chats?',
+    type: 'text',
+    correctAnswer: 'TE QUIERO'
+  }
 ];
 
 function showQuestion() {
@@ -35,34 +65,8 @@ function showQuestion() {
   questionElement.textContent = questions[currentQuestion].text;
   questionsContainer.appendChild(questionElement);
 
-  const optionsElement = document.createElement('ul');
-  questions[currentQuestion].options.forEach((option) => {
-    const optionElement = document.createElement('li');
-    optionElement.textContent = option;
-    optionsElement.appendChild(optionElement);
-  });
-  questionsContainer.appendChild(optionsElement);
-
-  // Agrega un botón para pasar a la siguiente pregunta
-  const nextButton = document.createElement('button');
-  nextButton.textContent = 'Siguiente';
-  nextButton.onclick = () => {
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-      showQuestion();
-    } else {
-      showResults();
-    }
-  };
-  questionsContainer.appendChild(nextButton);
-}
-
-// Función para mostrar los resultados
-function showResults() {
-  questionsContainer.style.display = 'none';
-  resultsContainer.style.display = 'block';
-
-  const resultsElement = document.createElement('p');
-  resultsElement.textContent = '¡Gracias por responder!';
-  resultsContainer.appendChild(resultsElement);
-}
+  let inputElement;
+  if (questions[currentQuestion].type === 'text') {
+    inputElement = document.createElement('input');
+    inputElement.type = 'text';
+    inputElement.placeholder = 'Escribe tu respuesta';
